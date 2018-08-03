@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: admin-service
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: lenovo
+Implementation-Vendor-Id: cn.ctx
+Build-Jdk: 1.8.0_144
+Implementation-URL: http://projects.spring.io/spring-boot/admin-parent
+ /admin-service/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+

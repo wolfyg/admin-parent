@@ -1,0 +1,369 @@
+html {
+    font: 16px/1.625 "Microsoft YaHei", "Hiragino Sans GB", arial, SimSun, sans-serif;
+}
+
+body {
+    margin: 0;
+    min-width: 1260px;
+}
+
+.c-ImgWp--hdgk {
+    width: 359px;
+    margin: 0 auto;
+}
+
+.c-ImgWp>img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.c-Header {
+    background: url("../img/pc_toupiao_header.png") no-repeat center;
+    width: 100%;
+    height: 600px;
+}
+
+.c-Main {
+    background-color: #bf181d;
+}
+
+.c-Cont {
+    width: 1004px;
+    padding-top: 28px;
+    margin: 0 auto;
+}
+
+.c-Info {
+    margin-top: 16px;
+}
+
+.c-Info-item {
+    text-align: center;
+    color: #8f440f;
+    float: left;
+    _display: inline;
+    background-color: #ffc871;
+    width: 334px;
+    padding: 62px 0;
+}
+
+.c-Info-item--tpcs {
+    padding: 50px 0;
+}
+
+.c-Info-item+.c-Info-item {
+    border-left: 1px solid #c0161c;
+}
+
+.c-Info-item h2 {
+    margin: 0;
+    font-size: 18px;
+    line-height: 30px;
+}
+
+.c-Info-emph {
+    color: #c0161c;
+    font-size: 30px;
+    line-height: 50px;
+}
+
+.c-TpWp {
+    background-color: #da8d52;
+    margin-top: 16px;
+
+    *zoom: 1;
+}
+
+.c-Tabs {
+    border-bottom: 1px solid #964405;
+}
+
+.c-Tabs-item {
+    /*width: 158px;*/
+    width: 33.3%;
+    font-size: 18px;
+    line-height: 65px;
+    color: #ffc672;
+    text-align: center;
+    float: left;
+    _display: inline;
+    cursor: pointer;
+
+    position: relative;
+}
+
+.c-Tabs-item.is-cur {
+    background-color: #8a0100;
+    color: #ffdf01;
+    font-weight: bold;
+    border-radius: 3px;
+}
+
+.c-Tabs-item.is-cur:after {
+    content: "";
+    width: 0;
+    height: 0;
+    font-size: 0;
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    margin-left: -10px;
+    border: 10px solid transparent;
+    border-top-color: #8a0100;
+}
+
+.c-TpWp-cont {
+    padding: 20px 10px 40px 10px;
+}
+
+.c-TpBox {
+    display: none;
+}
+
+.c-TpBox.is-cur {
+    display: block;
+}
+
+.c-TpBox-avatars {
+    margin-left: -9px;
+}
+
+.c-TpBox-avatarInfo {
+    background-color: #f6b27e;
+    float: left;
+    _display: inline;
+    padding: 8px;
+    width: 140px;
+    margin-left: 9px;
+    margin-bottom: 9px;
+}
+
+.c-TpBox-avatar {
+    width: 140px;
+    height: 180px;
+    position: relative;
+}
+
+.c-TpBox-avatar>img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.c-TpBox-avatarText {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: #fff;
+    font-size: 14px;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled='true', startColorstr='#80000000', endColorstr='#80000000');
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.c-TpBox-avatarText--item {
+    float: left;
+    width: 50%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    overflow: hidden;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.c-TpBox-check {
+    text-align: center;
+    color: #fff;
+    padding: 8px 0;
+    font-size: 12px;
+}
+
+.c-TpBox-pos {
+    font-size: 12px;
+    color: #c07844;
+    word-wrap: break-word;
+    word-break: break-all;
+    height: 40px;
+    overflow: hidden;
+}
+
+
+.c-TpBox-btn {
+    background: url("../img/pc_toupiao_btn.png") no-repeat center;
+    cursor: pointer;
+    width: 257px;
+    line-height: 65px;
+    margin: 30px auto 0 auto;
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+}
+
+.c-Footer {
+    background: url("../img/pc_toupiao_footer.png") no-repeat center #9a0609;
+    height: 269px;
+}
+
+.c-Layer {
+    background-color: transparent !important;
+}
+
+
+
+.c-Dialog {
+    background: url("../img/pc_tanchuang_bg.png") no-repeat center top transparent;
+    width: 560px;
+    height: 600px;
+    padding: 30px 70px;
+    text-align: center;
+    position: relative;
+}
+
+.c-Dialog-title {
+    width: 274px;
+    height: 59px;
+    margin: 0 auto;
+    padding-top: 30px;
+}
+
+.c-Dialog-title>img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.c-User {
+    padding-top: 20px;
+    max-height: 460px;
+    overflow-y: auto;
+}
+
+.c-User-avatar {
+    width: 120px;
+    height: 154px;
+    float: left;
+    _display: inline;
+}
+
+.c-User-avatar>img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.c-User-info {
+    text-align: left;
+    margin: 0;
+    font-size: 14px;
+    color: #fff;
+    margin-left: 130px;
+    min-height: 160px;
+}
+
+.c-User-detail p {
+    text-align: left;
+    text-indent: 2em;
+    font-size: 14px;
+    color: #fff;
+    margin: 10px 0 0 0;
+}
+
+.c-Dialog-close {
+    font-size: 60px;
+    color: #fff;
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    cursor: pointer;
+}
+
+.c-Tooltip {
+    display: table;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    padding: 40px 0;
+}
+
+.c-Tooltip-main {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.c-Tooltip-main>h2 {
+    font-weight: normal;
+    font-size: 30px;
+}
+
+.c-Tooltip-btn {
+    display: inline-block;
+    _display: inline;
+    text-decoration: none;
+    color: #fff;
+    background-color: #72cb46;
+    line-height: 50px;
+    width: 220px;
+    font-size: 26px;
+    border-radius: 6px;
+}
+
+.c-Rules {
+    width: 980px;
+    margin: 0 auto;
+    padding: 70px 0;
+    color: #fff;
+    font-size: 14px;
+}
+
+
+.c-Rules-item+.c-Rules-item {
+    margin-top: 30px;
+}
+
+.c-Rules-item>p {
+    margin: 10px 0;
+    word-wrap: break-word;
+    word-break: break-all;
+    line-height: 2em;
+}
+
+.c-Rules-emph {
+    color: #ffdf01;
+    font-weight: bold;
+}
+
+.c-Rules-emphs {
+    color: #f3ffff;
+    font-weight: normal;
+}.c-Rules {
+    width: 980px;
+    margin: 0 auto;
+    padding: 70px 0;
+    color: #fff;
+    font-size: 14px;
+}
+
+
+.c-Rules-item+.c-Rules-item {
+    margin-top: 30px;
+}
+
+.c-Rules-item>p {
+    margin: 10px 0;
+    word-wrap: break-word;
+    word-break: break-all;
+    line-height: 2em;
+}
+
+.c-Rules-emph {
+    color: #ffdf01;
+    font-weight: bold;
+}
+
+.c-Rules-emphs {
+    color: #f3ffff;
+    font-weight: normal;
+}

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ctx.service.mapper.primary.AmAdminMapper">
+  <resultMap id="BaseResultMap" type="cn.ctx.service.model.AmAdmin">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="nickName" jdbcType="VARCHAR" property="nickname" />
+    <result column="createTime" jdbcType="INTEGER" property="createtime" />
+    <result column="locked" jdbcType="BIT" property="locked" />
+    <result column="loginCount" jdbcType="INTEGER" property="logincount" />
+    <result column="lastLoginTime" jdbcType="INTEGER" property="lastlogintime" />
+    <result column="lastLoginIp" jdbcType="VARCHAR" property="lastloginip" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id,
+	username,
+	password,
+	salt,
+	nickName,
+	createTime,
+	locked,
+	loginCount,
+	lastLoginTime,
+	lastLoginip,
+	roleId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="cn.ctx.service.model.AmAdmin">
+    select 
+    <include refid="Base_Column_List" />
+    from am_admin
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from am_admin
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.ctx.service.model.AmAdmin">
+    insert into am_admin (id, username, password, 
+      salt, nickName, createTime, 
+      locked, loginCount, lastLoginTime, 
+      lastLoginIp)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{createtime,jdbcType=INTEGER}, 
+      #{locked,jdbcType=BIT}, #{logincount,jdbcType=INTEGER}, #{lastlogintime,jdbcType=INTEGER}, 
+      #{lastloginip,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ctx.service.model.AmAdmin">
+    insert into am_admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="salt != null">
+        salt,
+      </if>
+      <if test="nickname != null">
+        nickName,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="locked != null">
+        locked,
+      </if>
+      <if test="logincount != null">
+        loginCount,
+      </if>
+      <if test="lastlogintime != null">
+        lastLoginTime,
+      </if>
+      <if test="lastloginip != null">
+        lastLoginIp,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=INTEGER},
+      </if>
+      <if test="locked != null">
+        #{locked,jdbcType=BIT},
+      </if>
+      <if test="logincount != null">
+        #{logincount,jdbcType=INTEGER},
+      </if>
+      <if test="lastlogintime != null">
+        #{lastlogintime,jdbcType=INTEGER},
+      </if>
+      <if test="lastloginip != null">
+        #{lastloginip,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ctx.service.model.AmAdmin">
+    update am_admin
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickName = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=INTEGER},
+      </if>
+      <if test="locked != null">
+        locked = #{locked,jdbcType=BIT},
+      </if>
+      <if test="logincount != null">
+        loginCount = #{logincount,jdbcType=INTEGER},
+      </if>
+      <if test="lastlogintime != null">
+        lastLoginTime = #{lastlogintime,jdbcType=INTEGER},
+      </if>
+      <if test="lastloginip != null">
+        lastLoginIp = #{lastloginip,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.ctx.service.model.AmAdmin">
+    update am_admin
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      nickName = #{nickname,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=INTEGER},
+      locked = #{locked,jdbcType=BIT},
+      loginCount = #{logincount,jdbcType=INTEGER},
+      lastLoginTime = #{lastlogintime,jdbcType=INTEGER},
+      lastLoginIp = #{lastloginip,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="isExistAdminUser" resultType="AmAdmin">
+  	SELECT
+	<include refid="Base_Column_List"/>
+	FROM
+		am_admin
+	WHERE
+		username = #{name}
+	AND `password` = #{password}
+	LIMIT 1
+  </select>
+  
+  
+   <select id="getCount" resultType="int">
+  	SELECT
+		COUNT(id)
+	FROM
+		am_admin
+  	<where>
+  		<if test="admin !=null and admin.username!=null and admin.username!=''">
+  			username like '%${admin.username}%'
+  		</if>
+  	</where>
+  	ORDER BY createTime desc 
+  </select>
+  
+  
+  <select id="getAmAdminList" resultType="AmAdmin">
+  	SELECT <include refid="Base_Column_List"/>
+  	FROM am_admin
+  	<where>
+  		<if test="admin !=null and admin.username!=null and admin.username!=''">
+  			username like '%${admin.username}%'
+  		</if>
+  	</where>
+  	ORDER BY createTime desc 
+	LIMIT #{page},#{pageSize}
+  </select>
+  
+  
+  <insert id="addUser" useGeneratedKeys="true" keyProperty="id" parameterType="AmAdmin">
+  	INSERT INTO
+		am_admin
+		(
+			id,
+			username,
+			password,
+			salt,
+			nickName,
+			createTime,
+			locked,
+			loginCount,
+			lastLoginTime,
+			lastLoginip,
+			roleId
+		)
+		VALUES (
+			#{id},
+			#{username},
+			#{password},
+			#{salt},
+			#{nickName},
+			NOW(),
+			#{locked},
+			#{loginCount},
+			#{lastLoginTime},
+			#{lastLoginip},
+			#{roleId}
+		)
+		ON
+		DUPLICATE KEY UPDATE
+			id=#{id},
+			username=#{username},
+			<if test="password !=null and password !=''">
+				password=#{password},
+			</if>
+			salt=#{salt},
+			roleId=#{roleId},
+			nickName=#{nickName},
+			createTime=NOW(),
+			locked=#{locked},
+			loginCount=#{loginCount},
+			lastLoginTime=#{lastLoginTime},
+			lastLoginip=#{lastLoginip}
+  	
+  </insert>
+  
+  
+  <select id="getAmAdminById" resultType="AmAdmin">
+  	select <include refid="Base_Column_List"/> from am_admin where id=#{id} limit 1
+  </select>
+  
+  <delete id="batchDel" parameterType="java.util.List">
+        <!-- delete from am_admin where id in -->
+        delete
+			admin.*, a.*, c.*
+		FROM
+			am_admin admin
+		LEFT JOIN am_admin_role a ON admin.id = a.adminId
+		LEFT JOIN am_sys_role b ON a.roleId = b.id
+		LEFT JOIN am_sys_role_func c ON b.id = c.roleId
+		WHERE
+			admin.id in
+        <foreach item="item" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+  </delete>
+  
+  <select id="isExistUser" resultType="int">
+  	select count(id) from am_admin where username=#{username} limit 1
+  </select>
+  
+</mapper>

@@ -1,0 +1,123 @@
+html {
+    font: 16px/1.625 "Microsoft YaHei", "Hiragino Sans GB", arial, SimSun, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: url("../img/pc_bg.png") no-repeat center top #bc161b;
+    min-width: 1260px;
+}
+
+.c-Logo {
+    text-align: center;
+    color: #fff;
+    margin-top: 100px;
+}
+
+.c-Logo-text {
+    font-size: 40px;
+}
+
+.c-Logo-text>small {
+    font-size: 30px;
+}
+
+.c-LoginBox {
+    width: 820px;
+    height: 360px;
+    margin: 0 auto;
+    background: url("../img/pc_login_bg.png") no-repeat center;
+    background-size: 100% 100%;
+    box-sizing: border-box;
+    padding: 80px 130px 36px 150px;
+}
+
+.ie6 .c-LoginBox,
+.ie7 .c-LoginBox {
+    width: 380px;
+    height: 244px;
+    padding: 120px 220px 0px 220px;
+}
+
+.c-LoginBox-row {
+    font-size: 14px;
+    color: #fff;
+}
+
+.c-LoginBox-row+.c-LoginBox-row {
+    margin-top: 22px;
+}
+
+.ie6 .c-LoginBox-row+.c-LoginBox-row,
+.ie7 .c-LoginBox-row+.c-LoginBox-row {
+    margin-top: 12px;
+}
+
+.c-LoginBox-select,
+.c-LoginBox-field {
+    width: 414px;
+    padding: 8px 4px;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+.ie6 .c-LoginBox-select,
+.ie7 .c-LoginBox-select {
+    width: 240px;
+}
+
+.ie6 .c-LoginBox-field,
+.ie7 .c-LoginBox-field {
+    padding: 0;
+    width: 236px;
+}
+
+.c-LoginBox-btn {
+    display: block;
+    width: 150px;
+    height: 48px;
+    text-align: center;
+    line-height: 48px;
+    margin: 0 auto;
+    cursor: pointer;
+    font-size: 20px;
+    background: url("../img/pc_login_btn_bg.png") no-repeat center;
+    background-size: 100% 100%;
+}
+
+.ie6 .c-LoginBox-btn,
+.ie7 .c-LoginBox-btn {
+    font-size: 16px;
+    height: 32px;
+    line-height: 32px;
+}
+
+.c-Rules {
+    width: 980px;
+    margin: 0 auto;
+    padding: 70px 0;
+    color: #fff;
+    font-size: 14px;
+}
+
+
+.c-Rules-item+.c-Rules-item {
+    margin-top: 30px;
+}
+
+.c-Rules-item>p {
+    margin: 10px 0;
+    word-wrap: break-word;
+    word-break: break-all;
+    line-height: 2em;
+}
+
+.c-Rules-emph {
+    color: #ffdf01;
+    font-weight: bold;
+}
+
+.c-Rules-emphs {
+    color: #f3ffff;
+    font-weight: normal;
+}

@@ -1,0 +1,19 @@
+
+<!-- ¹ã¸æÄ£°å -->
+<script type="text/x-yg-template" id="adv">
+		<%if(this.data!='' && this.data!=null){%>
+			<%for(var index in this.data){%>
+			    <div class="swiper-slide">
+			        <a href="<%this.data[index].url%>" class="c-BannerImg">
+			            <img src="<%this.data[index].img%>" alt="">
+			        </a>
+			    </div>
+			<%}%>
+		<%}else{%>
+		    <div class="swiper-slide">
+		        <a href="javascript:;" class="c-BannerImg">
+		            <img src="http://placehold.it/750x290" alt="">
+		        </a>
+		    </div>
+		<%}%>
+</script>
