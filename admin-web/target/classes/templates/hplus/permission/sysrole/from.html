@@ -1,0 +1,116 @@
+<#include "../../head.html">
+<meta charset="utf-8">
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="from" method="post">
+                        	<input type="hidden" id="id" name="id" value="${sysRole.id!}">
+	                        <div class="form-group">
+	                            <label class="col-sm-2 control-label">角色名称：</label>
+	                            <div class="col-sm-10">
+	                                <input id="name" name="name" minlength="2" type="text" class="form-control" value="${sysRole.name!}">
+	                            </div>
+	                        </div>
+	                        
+	                        <div class="form-group">
+	                            <label class="col-sm-2 control-label">角色描述：</label>
+	                            <div class="col-sm-10">
+	                                <textarea id="description" name="description" class="form-control dataClear"  style="resize:none" >${sysRole.description!}</textarea>
+	                            </div>
+	                        </div>
+	                        
+                        	<div class="form-group">
+                            	<label class="col-sm-2 control-label">角色权限：</label>
+	                            <div class="col-sm-10">
+	                                    <div style="border-bottom: #e7eaec 1px solid; font-weight: bold; font-size: 14px;"></div>
+	                                    <div>
+	                                    	<#list menu as m>
+		                                        <div style="margin: 5px 0;" class="clearfix">
+		                                        	<#if m.parentId==0>
+		                                            	<b>${m.name!}</b></br>
+		                                        	</#if>
+	                                    			<#list menu as m1>
+	                                    				<#if m.id= m1.parentId >
+	                                    					<b>${m1.name!}</br></b>
+				                                            <#list func as f>  
+				                                              <#if m1.id == f.menuId>
+				                                              	<label class="checkbox-inline"><input class="i-checks" type="checkbox" name="funcIds" value="${f.id!}">${f.name!}</label>
+					                                              <#if myFunc??>
+					                                              	<#list myFunc as mf>
+					                                              		<#if mf.funcId == f.id>
+					                                              			<script>
+					                                              				$('input[name="funcIds"][value="'+${mf.funcId!} +'"]').iCheck('check');
+					                                              			</script>
+					                                              		</#if> 	 	
+					                                              	</#list>
+					                                              </#if> 		
+				                                              </#if>
+				                                           </#list>       
+				                                           <div style="border-bottom: #e7eaec 1px solid; font-weight: bold; font-size: 14px;"></div>
+				                                          </br>
+	                                    				</#if>
+	                                    			</#list>
+		                                            <div>
+		                                            </div>
+		                                        </div>
+	                                    	</#list>
+	                                    </div>
+	                            </div>
+                        	</div>
+                            <div class="form-group text-center">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <button class="btn btn-primary" id="btn"><#if sysRole.id??>修改<#else>提交</#if></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<#include "../../foot.html">
+<script src="${request.contextPath}/static/js/common.js"></script>
+<script type="text/javascript">
+$("#from").validate({
+	rules: {
+		name: {
+			required: true,
+			maxlength: 10
+		},
+		description:{
+			required: true,
+			maxlength: 20
+		}
+	},
+	messages: {
+		name: {
+			required: "请输入角色名",
+			maxlength: "角色长度不能大于10位"
+		},
+		description: {
+			required: "请输入角色描述",
+			maxlength: "描述长度不能大于20位"
+		}
+	},submitHandler: function(form) { 
+		$("#btn").attr("disabled","true");
+		$(form).ajaxSubmit({
+			type:"POST",
+			url:BaseUrl+"/manger/sysrole/edit",
+	        data:{},
+	        success:function( data ){
+	        	var bool=stateUtil(data);
+	        	if(bool){
+	        		window.parent.location.reload();
+	        	}else{
+	        		$("#btn").attr("disabled","false");
+	        	}
+	        }
+		});
+	}
+});
+</script>

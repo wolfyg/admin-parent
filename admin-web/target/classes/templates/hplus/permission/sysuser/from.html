@@ -1,0 +1,153 @@
+<#include "../../head.html">
+<meta charset="utf-8">
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="from" method="post">
+                       		<input type="hidden" id="id	" name="id" value="${admin.id!}">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label username">用户名：</label>
+                                <div class="col-sm-8">
+                                    <input id="username" name="username" class="form-control" type="text" value="${admin.username!}" <#if admin.id??>readonly="readonly"</#if>>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">密码：</label>
+                                <div class="col-sm-8">
+                                    <input id="password" name="password" class="form-control" type="text" value=""  placeholder="不修改密码请留空">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">确认密码：</label>
+                                <div class="col-sm-8">
+                                    <input id="passwordto" name="passwordto" class="form-control" type="text">
+                                </div>
+                            </div>
+                             <div class="form-group">
+	                            <label class="col-sm-3 control-label" >选择角色：
+                             	</label> 
+	                            <div class="col-sm-8">
+	                            	<#list sysRole as vo>
+	                            	 	<label class="radio-inline"><input class="i-checks" type="radio" name="roleId" value="${vo.id}">${vo.name}</label>
+	                            	</#list>
+	                            </div>
+	                            <!-- 角色信息提示定位 -->
+	                            <label class="col-sm-3" id="roleId_tip"></label>
+                        	</div>
+                        	
+                             <div class="form-group">
+	                            <label class="col-sm-3 control-label">是否禁用：</label>
+	                            <div class="col-sm-8">
+	                                <label class="radio-inline"><input class="i-checks" type="radio" name="locked" value="1" checked>否</label>
+	                                <label class="radio-inline"><input class="i-checks" type="radio" name="locked" value="0">是</label>
+	                            </div>
+                        	 </div>
+                            <div class="form-group text-center">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <button class="btn btn-primary" id="btn"><#if admin.id??>修改<#else>提交</#if></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<#include "../../foot.html">
+<script src="${request.contextPath}/static/js/common.js"></script>
+<script type="text/javascript">
+
+radioCheck("roleId",${admin.roleId!0});
+fillRadio(${admin.roleId!0}, "isShow");
+
+//账号验证
+jQuery.validator.addMethod("username", function(value, element) { 
+	var username = /^[a-zA-Z0-9]{5,10}$/ ;
+	return this.optional(element) || username.test(value); 
+	}, "账号只能是数字或字母5-10位"); 
+	
+//密码验证
+jQuery.validator.addMethod("password", function(value, element) { 
+	var password = /^[a-zA-Z0-9]{5,10}$/ ;
+	return this.optional(element) || password.test(value); 
+	}, "密码只能是数字或字母5-10位"); 
+	
+	
+$("#passwordto").blur(function(){
+	var password=$("#password").val();
+	var passwordto=$("#passwordto").val();
+	if(passwordto!==password){
+		$("#passwordto").val("");
+		$("#password").val("");
+		layer.msg("俩次密码不一致",{icon:5});
+	}
+});	
+	
+$("#from").validate({
+	rules: {
+		username: {
+			required: true,
+			maxlength: 10,
+			username:true,
+			remote: {
+			    url: BaseUrl+"/public/isExistUser",     //后台处理程序
+			    type: "post",               //数据发送方式
+			    dataType: "json",           //接受数据格式   
+			    data: {                     //要传递的数据
+			        username: function() {
+			        	if($("#id").val()===""){
+				            return $("#username").val();
+			        	}
+			        }
+			    }
+			    
+			}
+			
+		},
+		password: {
+			maxlength: 10,
+			password: true
+		},
+		roleId: {
+			required: true
+		}
+	},
+	messages: {
+		username: {
+			required: "请输入用户名",
+			maxlength: "名字长度不能大于10位",
+			remote:"用户名已经被注册"
+		},
+		roleId: {
+			required: "请选择角色"
+		}
+	},submitHandler: function(form) { 
+		$("#btn").attr("disabled","true");
+		$(form).ajaxSubmit({
+			type:"POST",
+			url:BaseUrl+"/manger/sysuser/edit",
+	        data:$(form).serialize(),
+	        success:function( data ){
+	        	var bool=stateUtil(data);
+	        	if(bool){
+	        		window.parent.location.reload();
+	        	}else{
+	        		$("#btn").attr("disabled","false");
+	        	}
+	        }
+		});
+	}, 
+	errorPlacement : function(error, element) {//error为错误提示对象，element为出错的组件对象  
+     	if (element.attr("name")==="roleId"){  //名字为 roleId 的错误提示重新定位
+            	error.css("display","block").appendTo($("#roleId_tip")) ;  
+          	}else{  
+            	element.after(error) ;//默认是加在 输入框的后面。这个else必须写。不然其他非radio的组件 就无法显示错误信息了。  
+      	}  
+   } 
+});
+</script>
