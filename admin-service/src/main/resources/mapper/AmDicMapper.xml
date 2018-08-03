@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ctx.service.mapper.primary.AmDicMapper">
+  <resultMap id="BaseResultMap" type="cn.ctx.service.model.AmDic">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="pid" jdbcType="VARCHAR" property="pid" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="delFlag" jdbcType="CHAR" property="delflag" />
+    <result column="code" jdbcType="CHAR" property="code" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, description, pid, sort, delFlag, code, count
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from am_dic
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from am_dic
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.ctx.service.model.AmDic">
+    insert into am_dic (id, name, description, 
+      pid, sort, delFlag, code, 
+      count)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{pid,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{delflag,jdbcType=CHAR}, #{code,jdbcType=CHAR}, 
+      #{count,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ctx.service.model.AmDic">
+    insert into am_dic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="delflag != null">
+        delFlag,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="delflag != null">
+        #{delflag,jdbcType=CHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=CHAR},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ctx.service.model.AmDic">
+    update am_dic
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="delflag != null">
+        delFlag = #{delflag,jdbcType=CHAR},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=CHAR},
+      </if>
+      <if test="count != null">
+        count = #{count,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.ctx.service.model.AmDic">
+    update am_dic
+    set name = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      delFlag = #{delflag,jdbcType=CHAR},
+      code = #{code,jdbcType=CHAR},
+      count = #{count,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getData" resultType="AmDic">
+  	select <include refid="Base_Column_List"/> from am_dic 
+  	<where>
+  		delFlag=1 
+  		<if test="pid != null">
+  			and	pid=#{pid}
+  		</if>
+  	</where>
+  	order by pid
+  </select>
+  
+  <select id="getTableData" resultType="AmDic">
+  	select <include refid="Base_Column_List"/> from am_dic
+  	<where>
+  		delFlag=1
+  		<if test="dic.name !=null and dic.name!=''">
+  			and `name` like '%${dic.name}%'
+  		</if>
+  		<if test="dic.pid > 0">
+  			and pid =#{dic.pid}
+  		</if>
+  		<if test="dic.id > 0">
+  			and id =#{dic.id}
+  		</if>
+  	</where>
+  	order by sort 
+	LIMIT #{page},#{pageSize}
+  </select>
+  
+  <select id="getCount" resultType="int">
+  	select count(1) from am_dic 
+  	<where>
+  		delFlag=1
+  		<if test="dic.name !=null and dic.name!=''">
+  			and `name` like '%${dic.name}%'
+  		</if>
+  		<if test="dic.pid > 0">
+  			and pid =#{dic.pid}
+  		</if>
+  		<if test="dic.id > 0">
+  			and id =#{dic.id}
+  		</if>
+  	</where>
+  </select>
+  
+  <update id="batchDel" parameterType="List">
+        update am_dic set delFlag=2	 where id in
+        <foreach item="item" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+  </update>
+</mapper>

@@ -1,0 +1,455 @@
+html {
+    font: 16px/1.5 -apple-system-font, BlinkMacSystemFont, "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    background-color: #bf181d;
+}
+
+.c-ImgWp>img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.c-Hdgk {
+    padding: 0 1.33vw;
+    margin-top: 3.2vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.c-Hdgk-item {
+    background-color: #ffc871;
+    text-align: center;
+    height: 24vw;
+    flex: 0 0 33.3%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    padding: 0 3.3vw;
+}
+
+.c-Hdgk-item+.c-Hdgk-item {
+    border-left: 1px solid #bf181d;
+}
+
+.c-Hdgk-title {
+    margin: 0;
+    font-size: 3.2vw;
+    color: #8f440f;
+    flex: 0 0 100%;
+}
+
+.c-Hdgk-text {
+    font-size: 3.2vw;
+    color: #8f440f;
+    flex: 0 0 100%;
+}
+
+.c-Hdgk-emph {
+    color: #c0161e;
+    font-size: 4vw;
+}
+
+.c-Djs {
+    width: 59.86vw;
+    height: 19.6vw;
+    background: url("../img/mb_djs_bg.png") no-repeat center;
+    background-size: 100% 100%;
+    margin: 6.26vw auto 0 auto;
+    position: relative;
+    display: flex;
+    padding: 8.4vw 0 0 7.8vw;
+}
+
+.c-Djs::before {
+    content: attr(data-text);
+    color: #ffdf01;
+    font-size: 4vw;
+    position: absolute;
+    left: 50%;
+    top: -.5em;
+    transform: translate(-53%, 0);
+    white-space: nowrap;
+}
+
+.c-Djs-time {
+    display: flex;
+    justify-content: space-between;
+}
+
+.c-Djs-time::after {
+    content: attr(data-text);
+    font-size: 4vw;
+    color: #fff;
+    padding: 0 2px;
+    height: 5.333333vw;
+    line-height: 5.333333vw;
+}
+
+.c-Djs-time:last-child::after {
+    content: "";
+    padding: 0;
+}
+
+.c-Djs-num {
+    font-size: 4vw;
+    color: #fff;
+    background-color: #970203;
+    border-radius: 3px;
+    width: 4vw;
+    height: 5.333333vw;
+    line-height: 5.333333vw;
+    text-align: center;
+}
+
+.c-Djs-num+.c-Djs-num {
+    margin-left: 0.6vw;
+}
+
+::-webkit-input-placeholder {
+    color: #fff;
+    font-size: 3.7vw;
+}
+
+:-moz-placeholder {
+    color: #fff;
+    font-size: 3.7vw;
+}
+
+::-moz-placeholder {
+    color: #fff;
+    font-size: 3.7vw;
+}
+
+:-ms-input-placeholder {
+    color: #fff;
+    font-size: 3.7vw;
+}
+
+.c-Search {
+    display: flex;
+    margin: 4vw 0;
+    justify-content: center;
+}
+
+.c-Search-field {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    background-color: #820403;
+    border: none;
+    color: #fff;
+    font-size: 3.7vw;
+    width: 60.53vw;
+    height: 10.6vw;
+    padding: 0 0 0 5.7vw;
+    border-radius: 1vw 0 0 1vw
+}
+
+.c-Search-btn {
+    text-decoration: none;
+    background: url("../img/mb_search_btn.png") no-repeat center;
+    background-size: 5.06vw 5.06vw;
+    width: 17.333333vw;
+    background-color: #ffc871;
+    border-radius: 0 1vw 1vw 0;
+}
+
+.c-Boxes {
+    width: 100vw;
+}
+
+.c-Boxes-item {
+    display: none;
+}
+
+.c-Boxes-item.is-cur {
+    display: block;
+}
+
+.c-Boxes-item.c-Boxes-item--sy {
+    background-color: #da8d52;
+}
+
+.c-Tabs {
+    display: flex;
+    width: 100%;
+    border-top: 1px solid #ffc771;
+}
+
+.c-Tabs-item {
+    color: #ffc672;
+    font-size: 3.2vw;
+    padding: 2vw 0;
+    flex: 0 0 33.3vw;
+    text-align: center;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    background-color: #bc0500;
+    border-radius: 1vw;
+}
+
+.c-Tabs-item+.c-Tabs-item {
+    border-left: 1px solid #ffc771;
+}
+
+.c-Tabs-item.is-cur {
+    font-weight: bold;
+    background-color: #8a0100;
+}
+
+.c-Tabs-item.is-cur::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    bottom: -4vw;
+    left: 50%;
+    margin-left: -1vw;
+    border: 2vw solid transparent;
+    border-top-color: #8a0100;
+}
+
+.c-Candidates {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: center;
+    padding: 2vw 1.6vw;
+}
+
+.c-Candidates-item {
+    padding: 1.6vw;
+    background-color: #f6b27e;
+    margin: 0 1.1vw 10px 1.1vw;
+    position: relative;
+}
+
+.c-Candidates-avatar {
+    width: 26.6vw;
+    height: 34.26vw;
+}
+
+.c-Candidates-avatar>img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.c-Candidates-info {
+    position: relative;
+}
+
+.c-Candidates-text {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 26.6vw;
+    position: absolute;
+    bottom: 0;
+}
+
+
+.c-Candidates-num,
+.c-Candidates-name {
+    font-size: 3.2vw;
+    height: 7.2vw;
+    line-height: 7.2vw;
+    color: #fff;
+    flex: 0 0 50%;
+    overflow: hidden;
+    text-align: center;
+    padding: 0 2px;
+}
+
+.c-Candidates-btn {
+    display: block;
+    width: 26vw;
+    text-align: center;
+    color: #fff;
+    font-size: 3.2vw;
+    text-decoration: none;
+    line-height: 6vw;
+    border-radius: 3vw;
+    background-color: #f56e0d;
+    border: 1px solid #b14a00;
+    margin-top: 1.6vw;
+}
+
+.c-Candidates-sign {
+    position: absolute;
+    background-color: #be171e;
+    right: 0;
+    top: 0;
+    z-index: 2;
+    font-size: 3.2vw;
+    color: #fff;
+    text-align: center;
+    height: 6vw;
+    padding: 0 4px;
+    background: url("../img/mb_sign.png") no-repeat center;
+    background-size: 100% 100%;
+}
+
+.c-Toggle {
+    display: flex;
+    width: 100vw;
+}
+
+.c-Toggle-item {
+    flex: 0 0 50%;
+    text-align: center;
+    font-size: 3.2vw;
+    color: #c0161e;
+    background-color: #ffc871;
+    line-height: 12vw;
+}
+
+.c-Toggle-item.is-cur {
+    color: #fff;
+    background-color: #820403;
+}
+
+.c-TpBox {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.c-TpBox-item {
+    display: none;
+    padding-top: 1.5vw;
+}
+
+.c-TpBox-item.is-cur {
+    display: block;
+}
+
+.c-Rules {
+    width: 90vw;
+    margin: 0 auto 4vw auto;
+}
+
+.c-Rules-item {
+    background-color: #820403;
+    font-size: 3.2vw;
+    color: #fff;
+    padding: 2.66vw;
+    margin: 0 auto;
+    border: 1px solid #6c0402;
+    border-radius: 0.5vw;
+}
+
+.c-Rules-item+.c-Rules-item {
+    margin-top: 2vw;
+}
+
+.c-Rules-emph {
+    font-weight: bold;
+    color: #ffdf01;
+}
+
+.c-Layer {
+    background-color: transparent !important;
+}
+
+.c-Layer .layui-layer-content {
+    background: url("../img/mb_tanchuang_bg.png") no-repeat center #da8d52;
+    background-size: 100% 100%;
+    border-radius: 0.5vw;
+}
+
+.c-Dialog {
+    padding: 6vw;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.c-Dialog-close {
+    font-size: 10vw;
+    color: #fff;
+    position: absolute;
+    right: 6vw;
+    top: 0;
+}
+
+.c-Dialog-main {
+    height: calc(100% - 42px);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.c-Dialog-title {
+    width: 36.6vw;
+    height: 7.6vw;
+    margin: 0 auto 2vw auto;
+}
+
+.c-Dialog-title>img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.c-User {
+    font-size: 3.2vw;
+    color: #fff;
+}
+
+.c-User-info {
+    display: flex;
+    align-items: flex-start;
+}
+
+.c-User-avatar {
+    height: 34.26vw;
+    flex: 0 0 26.6vw;
+}
+
+.c-User-avatar>img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0.5vw solid #f6b27e;
+}
+
+.c-User-brief {
+    margin-left: 2vw;
+}
+
+.c-User-detail {
+    max-height: 50%;
+    overflow: auto;
+}
+
+.c-User-detail p {
+    text-indent: 2em;
+    margin: 1vw 0;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.c-User-detail img {
+    display: block;
+    max-width: 100%;
+    margin: 1vw auto;
+    border: 0.5vw solid #f6b27e;
+}
+
+.c-Dialog-close {
+    -webkit-tap-highlight-color: transparent;
+}

@@ -1,0 +1,13 @@
+@charset "utf-8";
+/*全局样式*/
+html,body{ font-size:.28rem; font-family: "苹方", "Helvetica Neue", Helvetica, STHeiTi, "Microsoft YaHei", "微软雅黑", SimSun, sans-serif; color: #000; tap-highlight-color: transparent; -webkit-tap-highlight-color: transparent; -ms-tap-highlight-color: transparent;}
+body{   overflow-x:hidden; background: #fff; }
+
+.main-img{
+	width: 100%;
+	text-align: center;
+	margin-top: 50%;
+}
+.main-img >img{
+	width: 80%;
+}

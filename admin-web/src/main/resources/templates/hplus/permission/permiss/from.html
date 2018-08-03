@@ -1,0 +1,114 @@
+<#include "../../head.html">
+<meta charset="utf-8">
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="from" method="post">
+                       		<input type="hidden" name="id"value="${menu.id!}">
+                       		<div class="form-group">
+                                <label class="col-sm-3 control-label">所属菜单：</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control m-b" name="parentId" id="parentId">
+                                        <option value="0">--顶级菜单--</option>
+                                        <#list menuList as vo>
+                                        	<option value="${vo.id}">${vo.name}</option>
+                                        	<#if vo.children??>
+	                                        	<#list vo.children as child>
+	                                        		<option value="${child.id}">&nbsp;&nbsp;&nbsp;&nbsp;${child.name}</option>
+	                                        	</#list>
+                                        	</#if>
+                                        </#list>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">菜单名：</label>
+                                <div class="col-sm-8">
+                                    <input id="name" name="name" class="form-control" type="text" value="${menu.name!}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">排序字段：</label>
+                                <div class="col-sm-8">
+                                    <input id="sort" name="sort" class="form-control" type="text" value="${menu.sort!}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">图标：</label>
+                                <div class="col-sm-8">
+                                    <input id="icon" name="icon" class="form-control" type="text" value="${menu.icon!}">
+                                </div>
+                            </div>
+                             <div class="form-group">
+	                            <label class="col-sm-3 control-label">是否显示：</label>
+	                            <div class="col-sm-8">
+	                                <label class="radio-inline"><input class="i-checks" type="radio" name="isShow" value="1" checked>是</label>
+	                                <label class="radio-inline"><input class="i-checks" type="radio" name="isShow" value="0">否</label>
+	                            </div>
+                        	</div>
+                            <div class="form-group text-center">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <button class="btn btn-primary" id="btn"><#if menu.id??>修改<#else>提交</#if></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<#include "../../foot.html">
+<script src="${request.contextPath}/static/js/common.js"></script>
+<script type="text/javascript">
+fillSelect("parentId",${menu.parentId!''});
+fillRadio(${menu.isShow!1}, "isShow");
+$("#from").validate({
+	rules: {
+		name: {
+			required: true,
+			maxlength: 5
+		},
+		sort: {
+			required: true,
+			maxlength: 3,
+			digits:true 
+		},
+		icon: {
+			required: true
+		}
+	},
+	messages: {
+		name: {
+			required: "请输入菜单名",
+			maxlength: "名字长度不能大于5位"
+		},
+		sort: {
+			required: "请输入排序数字",
+			maxlength: "密码长度不能大于3位"
+		},
+		icon: {
+			required: "请输入图片"
+		}
+	},submitHandler: function(form) { 
+		$("#btn").attr("disabled","true");
+	 	$(form).ajaxSubmit({
+			type:"POST",
+			url:BaseUrl+"/manger/permission/edit",
+	        data:$(form).serialize(),
+	        success:function( data ){
+	        	var bool=stateUtil(data);
+	        	if(bool){
+	        		window.parent.location.reload();
+	        	}else{
+	        		$("#btn").attr("disabled","false");
+	        	}
+	        }
+		}); 
+	}
+});
+</script>

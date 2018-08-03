@@ -1,0 +1,101 @@
+<#include "../../head.html">
+<meta charset="utf-8">
+<body class="gray-bg">
+            
+	
+    <div class="wrapper wrapper-content animated fadeInRight">
+    	  <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                    	<form class="form-inline" id="form" role="form">
+                        	<div class="form-group m-r-xs">
+                         		角色:<input name="name" id="name" type="text" class="form-control" > 
+                            </div>
+							<button class="btn btn-sm btn-warning m-t-xs"  onclick="searchData()" type="button" title="查询"><i class="fa fa-search"></i></button>
+                       	</form>
+                    </div>
+                </div>
+    
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="example-wrap">
+			                <div class="btn-group hidden-xs" id="tableToolbar" role="group">
+			                	<@permis url="manger/sysrole/edit">
+			                    <button type="button" class="btn btn-outline btn-default" id="btn_add" onclick="btn_add('添加角色','/manger/sysrole/edit');">
+			                        <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+			                    </button>
+			                	</@permis>
+			                	<@permis url="manger/sysrole/edit">
+			                    <button type="button" class="btn btn-outline btn-default" id="btn_edit" onclick="btn_edit('编辑角色','/manger/sysrole/edit');">
+			                        <i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+			                    </button>
+			                	</@permis>
+			                	<@permis url="manger/sysrole/del">
+			                    <button type="button" class="btn btn-outline btn-default" id="btn_delete" onclick="btn_delete('/manger/sysrole/del');">
+			                        <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+			                    </button>
+			                	</@permis>
+			                </div>
+                            <table id="dataTable"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</body>
+<#include "../../foot.html">
+<script src="${request.contextPath}/static/js/base_list.js"></script>
+<script src="${request.contextPath}/static/js/common.js"></script>
+<script type="text/javascript">
+    var dataUrl = BaseUrl+"/manger/sysrole/getData";
+    //加载表格数据
+    var dataColumns = [{
+        checkbox: true
+    },{
+        field: 'id',
+        visible: false,//隐藏id
+        title: '序号'
+    }, {
+        field: 'name',
+        title: '角色'
+    }, {
+        field: 'description',
+        title: '描述'
+    }, {
+        field: 'isSys',
+        title: '是否显示',
+        formatter: function (value, row, index) {
+        	if(value==1){
+                return "超级管理员";
+        	}else{
+                return "管理员";
+        	}
+        }
+    }, {
+        field: 'createTime',
+        title: '创建时间',
+        formatter: function (value, row, index) {
+            return formatDate(row.createTime);
+        }
+    }
+    ];
+
+    function dataQueryParams(params) {
+        return {
+            _size: params.limit,  //页面大小
+            _index: params.offset, //页码
+        };
+    }
+    
+
+  //查询用户
+  function searchData() {
+  	var data = $("#form :validInput").serialize();
+  	$('#dataTable').bootstrapTable('refresh', {
+  		url : dataUrl + "?" + data
+  	});
+  }
+</script>

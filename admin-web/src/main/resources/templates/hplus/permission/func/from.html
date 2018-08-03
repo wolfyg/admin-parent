@@ -1,0 +1,118 @@
+<#include "../../head.html">
+<meta charset="utf-8">
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="from" method="post">
+                       		<input type="hidden" name="id"value="${func.id!}">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">所属菜单：</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control m-b" name="menuId" id="menuId">
+                                        <option></option>
+                                        <#list menuList as vo>
+                                        	<option value="${vo.id}">${vo.name}</option>
+                                        	<#list vo.children as child>
+                                        		<option value="${child.id}">&nbsp;&nbsp;&nbsp;&nbsp;${child.name}</option>
+                                        	</#list>
+                                        </#list>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">功能名：</label>
+                                <div class="col-sm-8">
+                                    <input id="name" name="name" class="form-control" type="text" value="${func.name!}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">排序字段：</label>
+                                <div class="col-sm-8">
+                                    <input id="sort" name="sort" class="form-control" type="text" value="${func.sort!}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">URL地址：</label>
+                                <div class="col-sm-8">
+                                    <input id="url" name="url" class="form-control" type="text" value="${func.url!}">
+                                </div>
+                            </div>
+                             <div class="form-group">
+	                            <label class="col-sm-3 control-label">是否显示：</label>
+	                            <div class="col-sm-8">
+	                                <label class="radio-inline"><input class="i-checks" type="radio" name="isShow" value="1" checked>是</label>
+	                                <label class="radio-inline"><input class="i-checks" type="radio" name="isShow" value="0">否</label>
+	                            </div>
+                        	</div>
+                            <div class="form-group text-center">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <button class="btn btn-primary" id="btn"><#if func.id??>修改<#else>提交</#if></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<#include "../../foot.html">
+<script src="${request.contextPath}/static/js/common.js"></script>
+<script type="text/javascript">
+fillSelect("menuId",${func.menuId!0});
+fillRadio(${func.isShow!1}, "isShow");
+$("#from").validate({
+	rules: {
+		menuId: {
+			required: true
+		},
+		name: {
+			required: true,
+			maxlength: 10
+		},
+		sort: {
+			required: true,
+			maxlength: 3,
+			digits:true 
+		},
+		url: {
+			required: true
+		}
+	},
+	messages: {
+		menuId: {
+			required: "主菜单必选"
+		},
+		name: {
+			required: "请输入功能名",
+			maxlength: "名字长度不能大于10位"
+		},
+		sort: {
+			required: "请输入排序数字",
+			maxlength: "排序长度不能大于3位"
+		},
+		url: {
+			required: "请输入功能地址"
+		}
+	},submitHandler: function(form) { 
+		$("#btn").attr("disabled","true");
+		$(form).ajaxSubmit({
+			type:"POST",
+			url:BaseUrl+"/manger/func/edit",
+	        data:$(form).serialize(),
+	        success:function( data ){
+	        	var bool=stateUtil(data);
+	        	if(bool){
+	        		window.parent.location.reload();
+	        	}else{
+	        		$("#btn").removeAttr("disabled");
+	        	}
+	        }
+		});
+	}
+});
+</script>

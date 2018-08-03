@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="format-detection" content="telephone=no,email=no"/>
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,minimal-ui"/>
+    <meta name="keywords" content="选择地址">
+    <meta name="description" content="选择地址">
+	<base href="${request.contextPath}/" />
+
+<title>选择地址</title>
+<link rel="stylesheet" type="text/css" href="static/css/common-m.css">
+<link rel="stylesheet" type="text/css" href="static/css/xzdz.css">
+<!--禁止分享-->
+<script type="text/javascript">
+	function onBridgeReady(){
+	 WeixinJSBridge.call('hideOptionMenu');
+	}
+	if (typeof WeixinJSBridge == "undefined"){
+		if( document.addEventListener ){
+			document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+		}else if (document.attachEvent){
+			document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+			document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+		}
+	}else{
+		onBridgeReady();
+	}
+</script>
+</head>
+<body ontouchstart="">
+    <div id="container" class="c-Map"></div>
+    <div class="c-Top">
+        <span>手动选择地址</span>
+        <span class="c-ConfirmBtn" id="js_btn" data-url="">确定</span>
+    </div>
+    <div class="c-Bottom">
+        <strong>所在地址：</strong>
+        <span class="c-Address" id="js_address">
+            <img src="static/img/loading.gif" width="20" height="20"/>
+        </span>
+    </div>
+    <div class="c-Marker"></div>
+
+    <script src="static/js/lib/jquery-2.2.4.min.js"></script>
+    <script src="http://webapi.amap.com/maps?v=1.4.5&key=3992165a74537140eb3836de852019b3&plugin=AMap.Geocoder"></script>
+    <script src="static/js/xzdz.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ctx.api.mapper.WxUserMapper">
+    <resultMap id="BaseResultMap" type="cn.ctx.api.model.WxUser">
+        <result column="openid" jdbcType="VARCHAR" property="openid" />
+        <result column="headimg" jdbcType="VARCHAR" property="headimg" />
+        <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+        <result column="modifytime" jdbcType="TIMESTAMP" property="modifytime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        openid, headimg, nickname, createtime, modifytime
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from wx_user
+        where openid = #{openid,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from wx_user
+        where openid = #{openid,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="cn.ctx.api.model.WxUser">
+        insert into wx_user (openid, headimg, nickname,
+        createtime, modifytime)
+        values (#{openid,jdbcType=VARCHAR}, #{headimg,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR},
+        #{createtime,jdbcType=TIMESTAMP}, #{modifytime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.ctx.api.model.WxUser">
+        insert into wx_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="openid != null">
+                openid,
+            </if>
+            <if test="headimg != null">
+                headimg,
+            </if>
+            <if test="nickname != null">
+                nickname,
+            </if>
+            <if test="createtime != null">
+                createtime,
+            </if>
+            <if test="modifytime != null">
+                modifytime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="openid != null">
+                #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="headimg != null">
+                #{headimg,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifytime != null">
+                #{modifytime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    
+    <insert id="insertUpdateWxUser" parameterType="cn.ctx.api.model.WxUser">
+    	INSERT INTO wx_user (
+    		openid,
+			headimg,
+			nickname,
+			createtime			    		
+    	)VALUES(
+    		#{openid},
+			#{headimg},
+			#{nickname},
+			NOW()	
+    	)
+    	ON
+		DUPLICATE KEY UPDATE
+		<if test="headimg !=null and headimg!=''">
+			headimg=#{headimg},
+		</if>
+		<if test="nickname !=null and nickname!=''">
+			nickname=#{nickname},
+		</if>
+		modifyTime=NOW()
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.ctx.api.model.WxUser">
+        update wx_user
+        <set>
+            <if test="headimg != null">
+                headimg = #{headimg,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                createtime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifytime != null">
+                modifytime = #{modifytime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where openid = #{openid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.ctx.api.model.WxUser">
+        update wx_user
+        set headimg = #{headimg,jdbcType=VARCHAR},
+        nickname = #{nickname,jdbcType=VARCHAR},
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+        modifytime = #{modifytime,jdbcType=TIMESTAMP}
+        where openid = #{openid,jdbcType=VARCHAR}
+    </update>
+    
+</mapper>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/login_v2.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:49 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>ggoby后台登录</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+    <link href="${request.contextPath}/static/js/hplus_v4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${request.contextPath}/static/js/hplus_v4/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="${request.contextPath}/static/js/hplus_v4/css/animate.min.css" rel="stylesheet">
+    <link href="${request.contextPath}/static/js/hplus_v4/css/style.min.css" rel="stylesheet">
+    <link href="${request.contextPath}/static/js/hplus_v4/css/login.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <script>
+        if(window.top!==window.self){window.top.location=window.location};
+    </script>
+
+</head>
+
+<body class="signin">
+    <div class="signinpanel">
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="signin-info">
+                    <div class="logopanel m-b">
+                        <h1>[ XXX系统 ]</h1>
+                    </div>
+                    <div class="m-b"></div>
+                    <h4>欢迎使用 <strong>xxx系统</strong></h4>
+                    <ul class="m-b">
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势一</li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势二</li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势三</li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势四</li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势五</li>
+                    </ul>
+                    <!-- <strong>还没有账号？ <a href="#">立即注册&raquo;</a></strong> -->
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <form method="post" id="login" >
+                    <h4 class="no-margins"></h4>
+                    <p class="m-t-md"></p>
+                    <input type="text" class="form-control uname" id="username" name="username" placeholder="用户名" value="admin"/>
+                    <input type="password" class="form-control pword m-b" id="password" name="password" placeholder="密码" value="123456"/>
+                    <div style="text-align: left;" id="vcode">
+		                <input id="vCode" name="vCode" class="form-control" type="text" style="width: 110px;display: inline-block;vertical-align: middle;margin-top: 0;color: black;" placeholder="验证码">
+	                	<img src="${request.contextPath}/public/getGifCode" style="height: 34px;vertical-align: middle;"/>
+                	</div>
+                	<!-- 验证码提示定位 -->
+                    <span id="vCode_tip"></span>
+                    <button class="btn btn-success btn-block">登录</button>
+                    <span id="lastname"></span>
+                </form>
+            </div>
+        </div>
+        <div class="signup-footer">
+            <div class="pull-left">
+                &copy; 2015 All Rights Reserved. H+
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="${request.contextPath}/static/js/jquery-2.2.4.min.js"></script>
+<script src="${request.contextPath}/static/js/layer/layer.js"></script>
+<script src="${request.contextPath}/static/js/hplus_v4/js/jquery.min.js"></script>
+<script src="${request.contextPath}/static/js/hplus_v4/js/jquery.form.js"></script>
+<script src="${request.contextPath}/static/js/hplus_v4/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="${request.contextPath}/static/js/hplus_v4/js/plugins/validate/messages_zh.min.js"></script>
+<script type="text/javascript">
+//验证码
+$("#vcode").on("click",'img',function(){
+	/**动态验证码，改变地址，多次在火狐浏览器下，不会变化的BUG，故这样解决*/
+	var i = new Image();
+	i.src = '${request.contextPath}/public/getGifCode?'  + Math.random();
+	$(this).clone(true).attr("src",'${request.contextPath}/public/getGifCode?'  + Math.random()).replaceAll(this);
+	//$(i).replaceAll(this);
+});
+
+//账号验证
+jQuery.validator.addMethod("username", function(value, element) { 
+	var username = /^[a-zA-Z0-9]{5,10}$/ ;
+	return this.optional(element) || username.test(value); 
+	}, "账号只能是数字或字母5-10位"); 
+	
+//密码验证
+jQuery.validator.addMethod("password", function(value, element) { 
+	var password = /^[a-zA-Z0-9]{5,10}$/ ;
+	return this.optional(element) || password.test(value); 
+	}, "密码只能是数字或字母5-10位"); 
+	
+$("#login").validate({
+	rules: {
+		username: {
+			required: true,
+			minlength: 2,
+			username: true
+		},
+		password: {
+			required: true,
+			minlength: 5,
+			password: true
+		},
+		vCode: {
+			required: true,
+			minlength: 4,
+			maxlength: 4
+		}
+	},
+	messages: {
+		username: {
+			required: "请输入名字",
+			minlength: "名字长度不能少于2位"
+		},
+		password: {
+			required: "请输入密码",
+			minlength: "密码长度不能少于5位"
+		},
+		vCode: {
+			required: "请输入验证码",
+			minlength: "验证码长度不能少于4位",
+			maxlength: "验证码长度最大4位"
+		}
+	},submitHandler: function(form) { //ajax提交必须引入 jQuery.from.js
+		$(form).ajaxSubmit({
+			type:"POST",
+			url:"${request.contextPath}/manger/login",
+            data:$(form).serialize(),
+            success:function( data ){
+            	console.log(data);
+            	if(data.result==1){
+            		$(".btn").html("登录中");
+            		$(".btn").attr("disabled","true");
+            		layer.msg(data.msg);
+            		setTimeout(function(){
+            			location.href="${request.contextPath}/manger/main";
+            		},1000)
+            	}else if(data.result==0){
+            		layer.msg(data.msg);
+            	}else if(data.result==9999){
+            		layer.msg(data.msg);
+            	}
+            }
+			
+		});
+	}, 
+	errorPlacement : function(error, element) {//error为错误提示对象，element为出错的组件对象  
+     	if (element.attr("name")==="vCode"){  //名字为 roleId 的错误提示重新定位
+            	error.css("display","block").appendTo($("#vCode_tip")) ;  
+        }else{  
+            	element.after(error) ;//默认是加在 输入框的后面。这个else必须写。不然其他非radio的组件 就无法显示错误信息了。  
+      	}  
+   } 
+});
+
+
+
+</script>
+</html>

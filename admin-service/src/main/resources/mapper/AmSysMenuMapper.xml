@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ctx.service.mapper.primary.AmSysMenuMapper">
+  <resultMap id="BaseResultMap" type="cn.ctx.service.model.AmSysMenu">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="parentId" jdbcType="INTEGER" property="parentid" />
+    <result column="sort" jdbcType="VARCHAR" property="sort" />
+    <result column="isShow" jdbcType="VARCHAR" property="isshow" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, parentId, sort, isShow,icon, createTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from am_sys_menu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from am_sys_menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.ctx.service.model.AmSysMenu">
+    insert into am_sys_menu (id, name, parentId, 
+      sort, isShow, createTime
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER}, 
+      #{sort,jdbcType=VARCHAR}, #{isshow,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ctx.service.model.AmSysMenu">
+    insert into am_sys_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="parentid != null">
+        parentId,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="isshow != null">
+        isShow,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=VARCHAR},
+      </if>
+      <if test="isshow != null">
+        #{isshow,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ctx.service.model.AmSysMenu">
+    update am_sys_menu
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        parentId = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=VARCHAR},
+      </if>
+      <if test="isshow != null">
+        isShow = #{isshow,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.ctx.service.model.AmSysMenu">
+    update am_sys_menu
+    set name = #{name,jdbcType=VARCHAR},
+      parentId = #{parentid,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=VARCHAR},
+      isShow = #{isshow,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getAmSysMenuList" resultType="AmSysMenu">
+  	SELECT
+		*
+	FROM
+		am_sys_menu
+	WHERE
+		id IN (
+			SELECT DISTINCT
+				menuId
+			FROM
+				am_sys_func
+			WHERE
+				id IN (
+					SELECT
+						funcId
+					FROM
+						am_sys_role_func
+					WHERE
+						roleId IN (
+							SELECT
+								roleId
+							FROM
+								am_admin_role
+							WHERE
+								adminId = #{adminId}
+						)
+				)
+		)
+	ORDER BY
+		sort
+  </select>
+  
+  <select id="getCount" resultType="int">
+  	SELECT
+		COUNT(id)
+	FROM
+		am_sys_menu
+  	<where>
+  		<if test="menu.name!=null and menu.name!=''">
+  			`name`=#{menu.name}
+  		</if>
+  	</where>
+  	ORDER BY sort 
+  </select>
+  
+  
+  <select id="getMenuList" resultType="AmSysMenu">
+  	SELECT <include refid="Base_Column_List"/>
+  	FROM am_sys_menu
+  	<where>
+  		<if test="menu.name!=null and menu.name!=''">
+  			`name`=#{menu.name}
+  		</if>
+  	</where>
+  	ORDER BY sort 
+	LIMIT #{page},#{pageSize}
+  </select>
+  
+  
+  <insert id="addMenu" parameterType="AmSysMenu">
+  	INSERT INTO
+		am_sys_menu
+		(
+			id,
+			`name`,
+			parentId,
+			sort,
+			isShow,
+			icon,
+			createTime
+		)
+		VALUES (
+			#{id},
+			#{name},
+			#{parentId},	
+			#{sort},
+			#{isShow},
+			#{icon},
+			NOW()
+		)
+		ON
+		DUPLICATE KEY UPDATE
+		`name`=#{name},
+		sort=#{sort},
+		parentId=#{parentId},
+		isShow=#{isShow},
+		icon=#{icon}
+  	
+  </insert>
+  
+  
+  <select id="getAmSysMenuById" resultType="AmSysMenu">
+  	select <include refid="Base_Column_List"/> from am_sys_menu where id=#{id} limit 1
+  </select>
+  
+  <delete id="batchDel" parameterType="java.util.List">
+        delete from am_sys_menu where id in
+        <foreach item="item" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+  </delete>
+  
+  <select id="getAllMenu" resultType="AmSysMenu">
+  	select <include refid="Base_Column_List"/> from am_sys_menu order by sort ASC
+  </select>
+  
+  <select id="getAllMenuToMap" resultType="java.util.LinkedHashMap">
+  	select <include refid="Base_Column_List"/> from am_sys_menu order by sort ASC
+  </select>
+  
+  
+  <select id="getAmSysParentMenuList" resultType="java.util.LinkedHashMap">
+	  	SELECT
+		<include refid="Base_Column_List"/>
+		FROM
+			am_sys_menu
+		WHERE
+			id IN (
+				SELECT DISTINCT
+					parentId
+				FROM
+					am_sys_menu
+				WHERE
+					id IN (
+						SELECT DISTINCT
+							menuId
+						FROM
+							am_sys_func
+						WHERE
+							id IN (
+								SELECT
+									funcId
+								FROM
+									am_sys_role_func
+								WHERE
+									roleId IN (
+										SELECT
+											roleId
+										FROM
+											am_admin_role
+										WHERE
+											adminId = #{adminId}
+									)
+							)
+					)
+			)
+		ORDER BY
+			sort ASC
+  </select>
+  
+  <select id="getAmSysChildMenuList" resultType="java.util.LinkedHashMap">
+	  SELECT
+			<include refid="Base_Column_List"/>
+		FROM
+			am_sys_menu
+		WHERE
+			id IN (
+				SELECT DISTINCT
+					menuId
+				FROM
+					am_sys_func
+				WHERE
+					id IN (
+						SELECT
+							funcId
+						FROM
+							am_sys_role_func
+						WHERE
+							roleId IN (
+								SELECT
+									roleId
+								FROM
+									am_admin_role
+								WHERE
+									adminId = #{adminId}
+							)
+					)
+			)
+		ORDER BY
+			sort
+  </select>
+</mapper>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ctx.service.mapper.primary.AmSysRoleFuncMapper">
+  <resultMap id="BaseResultMap" type="cn.ctx.service.model.AmSysRoleFuncKey">
+    <id column="roleId" jdbcType="INTEGER" property="roleid" />
+    <id column="funcId" jdbcType="VARCHAR" property="funcid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+  	roleId,
+	funcId
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="cn.ctx.service.model.AmSysRoleFuncKey">
+    delete from am_sys_role_func
+    where roleId = #{roleid,jdbcType=INTEGER}
+      and funcId = #{funcid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.ctx.service.model.AmSysRoleFuncKey">
+    insert into am_sys_role_func (roleId, funcId)
+    values (#{roleid,jdbcType=INTEGER}, #{funcid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ctx.service.model.AmSysRoleFuncKey">
+    insert into am_sys_role_func
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleid != null">
+        roleId,
+      </if>
+      <if test="funcid != null">
+        funcId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleid != null">
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="funcid != null">
+        #{funcid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="getAmSysFuncList" resultType="AmSysFunc">
+	  SELECT
+			*
+		FROM
+			am_sys_func
+		WHERE
+			id IN (
+				SELECT
+					funcId
+				FROM
+					am_sys_role_func
+				WHERE
+					roleId IN (
+						SELECT
+							roleId
+						FROM
+							am_admin_role
+						WHERE
+							adminId = #{adminId}
+					)
+			)
+		ORDER BY
+			sort
+  </select>
+  
+  <select id="getSysRoleFuncByRoleId" resultType="AmSysRoleFuncKey">
+  		SELECT <include refid="Base_Column_List"/> FROM am_sys_role_func WHERE roleId=#{roleId}
+  </select>
+  
+  <insert id="addSysRoleFunc" parameterType="AmSysRoleFuncKey">
+      	insert into am_sys_role_func
+           (	roleId, 
+           		funcId
+           )  	values
+       <foreach collection ="roleFuncList" item="item" index= "index" separator =",">
+           (
+	            #{item.roleId},
+	            #{item.funcId}
+           )
+       </foreach >
+  </insert>
+  
+  <delete id="delRoleFuncByRoleId">
+  		delete from am_sys_role_func where roleId=#{roleId}
+  </delete>
+  
+   <select id="getAmSysFuncListToMap" resultType="Map">
+   		SELECT
+			f.*
+		FROM
+			am_sys_func f
+		JOIN am_sys_role_func rf ON rf.funcId = f.id
+		JOIN am_admin_role ar ON rf.roleId = ar.roleId
+		WHERE
+			ar.adminId = #{adminId}
+		ORDER BY
+			f.menuId ASC,
+			f.sort ASC
+   </select>
+</mapper>

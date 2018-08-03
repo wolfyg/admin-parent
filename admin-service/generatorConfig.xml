@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <!-- 指定mysql jar包 -->
+  <classPathEntry location="D:\maven\mvnRespo\mysql\mysql-connector-java\5.1.40\mysql-connector-java-5.1.40.jar" />
+  <context id="DB2Tables" targetRuntime="MyBatis3">
+ <!-- 去除自动生成的注释 -->
+ <commentGenerator>
+  <property name="suppressAllComments" value="true" />
+ </commentGenerator>
+ 	<!-- 数据源 -->
+	<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+        connectionURL="jdbc:mysql://192.168.23.126:3306/test"
+        userId="root"
+        password="root">
+    </jdbcConnection>
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+    <!-- model路径 -->
+    <javaModelGenerator targetPackage="cn.ctx.service.model" targetProject="admin-service">
+      <property name="enableSubPackages" value="true" />
+      <property name="trimStrings" value="true" />
+    </javaModelGenerator>
+    <!-- MapperXML路径 -->
+    <sqlMapGenerator targetPackage="mapper"  targetProject="admin-service/src/main/resources">
+      <property name="enableSubPackages" value="true" />
+    </sqlMapGenerator>
+    <!-- dao路径 -->
+    <javaClientGenerator type="XMLMAPPER" targetPackage="cn.ctx.service.mapper.primary"  targetProject="admin-service">
+      <property name="enableSubPackages" value="true" />
+    </javaClientGenerator>
+    <!-- 表名 -->
+    <table tableName="am_dic" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+  </context>  
+</generatorConfiguration>
