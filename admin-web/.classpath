@@ -28,5 +28,14 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="D:/maven/mvnRespo1/org/springframework/boot/spring-boot/1.5.16.RELEASE/spring-boot-1.5.16.RELEASE.jar" sourcepath="D:/maven/mvnRespo1/org/springframework/boot/spring-boot/1.5.16.RELEASE/spring-boot-1.5.16.RELEASE-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.springframework.boot"/>
+			<attribute name="maven.artifactId" value="spring-boot"/>
+			<attribute name="maven.version" value="1.5.16.RELEASE"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

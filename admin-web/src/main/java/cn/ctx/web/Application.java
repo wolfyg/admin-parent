@@ -3,12 +3,9 @@ package cn.ctx.web;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -16,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import cn.ctx.common.base.BaseConfig;
-import cn.ctx.common.base.CacheConstants;
 
 /**
  * 打war包
@@ -80,19 +76,19 @@ public class Application extends  SpringBootServletInitializer /**WebMvcConfigur
         return "redirect:manger/index";
     }
     
-    /**
-    * @Title: containerCustomizer
-    * @Description: TODO(设置session过期时间)
-    * @author gyu
-    * @date 2017年10月15日上午12:56:21
-     */
-    @Bean
-    public EmbeddedServletContainerCustomizer containerCustomizer(){
-           return new EmbeddedServletContainerCustomizer() {
-               @Override
-               public void customize(ConfigurableEmbeddedServletContainer container) {
-                    container.setSessionTimeout(CacheConstants.USERNAME_TTL);//单位为S 此处session 过期时间为30分钟
-              }
-        };
-    }
+//    /**
+//    * @Title: containerCustomizer
+//    * @Description: TODO(设置session过期时间)
+//    * @author gyu
+//    * @date 2017年10月15日上午12:56:21
+//     */
+//    @Bean
+//    public EmbeddedServletContainerCustomizer containerCustomizer(){
+//           return new EmbeddedServletContainerCustomizer() {
+//               @Override
+//               public void customize(ConfigurableEmbeddedServletContainer container) {
+//                    container.setSessionTimeout(CacheConstants.USERNAME_TTL);//单位为S 此处session 过期时间为30分钟
+//              }
+//        };
+//    }
 }

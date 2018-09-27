@@ -27,7 +27,7 @@ package cn.ctx.web.conf;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import cn.ctx.web.Interceptor.UserSecurityInterceptor;
 import cn.ctx.web.Interceptor.error.ErrorInterceptor;
@@ -37,7 +37,7 @@ import cn.ctx.web.Interceptor.error.ErrorInterceptor;
  * @since 2016-6-20 16:16
  */
 @Configuration
-public class WebMvcConfig extends WebMvcConfigurerAdapter {
+public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -69,6 +69,4 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 //        configurer.setTemplateLoaderPath("/WEB-INF/");
 //        return configurer;
 //    }
-    
-    
 }

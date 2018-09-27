@@ -1,23 +1,17 @@
-/**    
-* @Title: TreeParser.java  
-* @Package cn.ctx.common.framework.util  
-* @Description: TODO(用一句话描述该文件做什么)  
-* @author gyu
-* @date 2018年4月25日 下午2:06:08  
-* @version V1.0    
-*/
 package cn.ctx.common.framework.util;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**  
+import com.google.gson.Gson;
+
+/**
 * @ClassName: TreeParser  
-* @Description: TODO(树生成工具)  
+* @Description: TODO(树型解析器)  
 * @author gyu
-* @date 2018年4月25日 下午2:06:08  
-*    
-*/
+* @date 2018年4月25日 下午2:31:33  
+*
+ */
 public class TreeParser{
 	
 	public interface TreeEntity<E> {  
@@ -37,7 +31,7 @@ public class TreeParser{
         Integer parentId;
         for (E entity : entityList) {
             parentId=entity.getParentId();
-            if(parentId==null||topId.equals(parentId)){
+            if(parentId==null||topId==parentId){
                 resultList.add(entity);
             }
         }
@@ -79,4 +73,6 @@ public class TreeParser{
         
         return childList;
     }
+   
 }
+
